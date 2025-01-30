@@ -1,0 +1,151 @@
+title: Initial
+--- Start
+<<declare $faith = 0>> // 信仰值
+<<declare $power = 0>> // 权力倾向
+<<declare $cycle = 1>> // 轮回次数
+
+<<jump cycle_begin>>
+===
+title: cycle_begin
+---
+古老的经卷在火光中缓缓展开...
+<<if $cycle > 1>>
+这已经是第{$cycle}次轮回了...
+先知以诺站在燃烧的荆棘前："统治者啊，你看到这未烧毁的荆棘了吗？"
+<<endif>>
+-> 选择初始道路
+<<jump initial_choice>>
+===
+title: initial_choice
+---
+-> 建造巴别塔，直达天庭
+    <<jump build_tower>>
+-> 寻找应许之地，建立新城
+    <<jump find_promised_land>>
+-> 询问先知的建议<<if $cycle > 1>>
+    <<jump ask_prophet>>
+
+===
+title: ask_prophet
+---
+以诺眼中映着火光："记得上次你们选择了
+<<if $cycle == 2>>
+建造高塔
+<<elseif $cycle == 3>>
+开拓新城
+<<else>>
+"不同道路"
+<<endif>>，结果如何呢？"
+===
+title: build_tower
+---
+人民开始搬运砖石，空中传来隆隆雷声...
+工头宁录："我们需要更多奴隶！要赶在季风前完成第一层！"
+-> 征用邻邦俘虏
+    <<jump use_slaves>>
+-> 让民众自愿参与 <<if $faith >= 2>>
+    <<jump volunteer_work>>
+===
+title: use_slaves
+---
+<<set $power += 3>>
+塔基迅速建成，但夜半时分传来哭声...
+<<jump uprising_event>>
+===
+title: uprising_event
+---
+<<set $faith += 2>>
+进度缓慢但歌声不断，某日工匠发现奇异符号...
+-> 这是神的启示
+    <<jump divine_sign>>
+-> 这是异教符号
+    <<jump pagan_symbol>>
+===
+title: divine_sign
+---
+石板上刻着"以牙还牙，以眼还眼"...
+大祭司："这是全新的诫命！"
+-> 写入法典
+    <<jump new_law>>
+-> 需要更多解读
+    <<jump consult_sages>>
+===
+
+title: new_law
+---
+<<set $power += 2>>
+法典颁布后，审判官权力日益扩大...
+<<jump prosperity_period>>
+===
+title: prosperity_period
+---
+第{$cycle}王朝进入全盛期...
+商人带来远方的香料，学者在图书馆辩论，但...
+卫队长："北方部落要求更多自治权！"
+-> 武力镇压
+    <<jump suppress_revolt>>
+-> 授予特权<<if $faith >= 3>>
+    <<jump grant_privilege>> 
+-> 修建防御城墙<<if $power >= 4>>
+    <<jump 修建防御城墙>> 
+===
+title: suppress_revolt
+---
+<<set $power += 2>>
+血染红了橄榄山，但境内暂时恢复平静...
+-> 继续发展艺术
+    <<jump develop_arts>>
+-> 扩充军备
+    <<jump expand_army>>
+===
+title: develop_arts
+---
+金灯台照亮圣殿，诗人谱写新的赞美诗...
+但国库逐渐空虚...
+<<jump corruption_phase>>
+===
+title: corruption_phase
+---
+收税官亚甲："我们需要对神庙产业征税！"
+-> 批准新税
+    <<jump tax_temple>>
+-> 保持神圣豁免
+    <<jump keep_exemption>>
+===
+title: tax_temple
+---
+<<set $faith -= 3>>
+大祭司在圣所前撕碎税令："这是亵渎！"
+<<jump judgement_day>>
+===
+title: judgement_day
+---
+天火突然降临的那日...
+先知约珥在市场上呼喊："这殿将成为荒场！"
+<<if $cycle >= 3>>
+你注意到火焰的形状和上次轮回相同...
+<<endif>>
+-> 重新开始轮回
+    <<jump restart_cycle>>
+===
+title: restart_cycle
+---
+<<set $cycle += 1>>
+<<set $faith = 0>>
+<<set $power = 0>>
+
+沙漏翻转，新的亚当和夏娃睁开眼睛...
+
+<<jump cycle_begin>>
+<<if $cycle >= 3 && $faith >=5>>
+// 隐藏结局（需要特定条件）
+<<jump secret_ending>>
+<<endif>>
+===
+title: secret_ending
+---
+第七位天使吹响号角时...
+以诺突然握住你的手："这次不同了！看——"
+破损的石碑显现新文字："爱你的邻舍如同自己"
+沙漏停止了流动...
+===
